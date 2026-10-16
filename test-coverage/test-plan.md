@@ -98,7 +98,7 @@ The objective is to verify expected business behavior, identify account-specific
 - **Risk:** High
 - **Automation:** Yes
 
-- ### TC_003 — Log in with empty username
+### TC_003 — Log in with empty username
 - **Module:** Login
 - **Scenario:** Username required validation
 - **Preconditions:** Login page is visible
@@ -113,7 +113,7 @@ The objective is to verify expected business behavior, identify account-specific
 - **Risk:** Medium
 - **Automation:** Yes
 
-- ### TC_004 — Log in with empty password
+### TC_004 — Log in with empty password
 - **Module:** Login
 - **Scenario:** Password required validation
 - **Preconditions:** Login page is visible
@@ -128,7 +128,7 @@ The objective is to verify expected business behavior, identify account-specific
 - **Risk:** Medium
 - **Automation:** Yes
 
-- ### TC_005 — Log in with both username and password fields empty
+### TC_005 — Log in with both username and password fields empty
 - **Module:** Login
 - **Scenario:** Required field validation when both fields are empty
 - **Preconditions:** Login page is visible
@@ -143,7 +143,7 @@ The objective is to verify expected business behavior, identify account-specific
 - **Risk:** Medium
 - **Automation:** Yes
 
-- ### TC_006 — Log in with invalid user credentials
+### TC_006 — Log in with invalid user credentials
 - **Module:** Login
 - **Scenario:** Invalid username with valid password
 - **Preconditions:** Login page is visible
