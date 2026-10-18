@@ -244,17 +244,25 @@ The objective is to verify expected business behavior, identify account-specific
 - **Risk:** High
 - **Automation:** Yes
 
-### TC_012 — Verify session persistence after successful login
+### TC_012 — Verify that the authenticated user session persists after refreshing the browser page.
 - **Module:** Login
-- **Scenario:** Session persistence after successful login
-- **Preconditions:** Login page is visible
+- **Scenario:** Verify session persistence after successful login
+- **Preconditions:** User is on the login page, no active user session exists. Browser cookies and local storage are cleared before the test.
 - **Test Steps:**
   1. Enter standard_user in Username field
   2. Enter secret_sauce in Password field
   3. Click Login button
-- **Test Data:** Username: standard_user / Password: secret_sauce
-- **Expected Result:** Login succeeds, inventory page loads correctly, and Product names, prices, images, and buttons are displayed correctly
-- **Test Type:** Positive / Account-Specific
+  4. Verify that login is successful and the user is redirected to the Inventory Page.
+  5. Add a product "Sauce Labs Backpack" to the shopping cart.
+  6. Verify that the cart badge displays 1.
+  7. Refresh the browser page.
+  8. Verify that the user remains authenticated and stays on the Inventory Page.
+  9. Verify that the cart badge still displays 1.
+  10. Navigate to the Shopping Cart Page.
+  11. Verify that Sauce Labs Backpack remains in the shopping cart without requiring the user to log in again.
+- **Test Data:** Username: standard_user, Password: secret_sauce, Product: Sauce Labs Backpack
+- **Expected Result:** The authenticated session remains active after refreshing the browser page. The user is not redirected to the Login Page.
+- **Test Type:** Positive / Functional / Session Management
 - **Priority:** High
 - **Risk:** High
 - **Automation:** Yes
@@ -325,24 +333,8 @@ The objective is to verify expected business behavior, identify account-specific
 - **Risk:** Medium
 - **Automation:** Yes
 
-### TC_017 — Verify adding and removing the same product repeatedly.
-- **Module:** Shopping Cart
-- **Scenario:** Verify adding and removing the same product repeatedly
-- **Preconditions:** Logged in, and on inventory page
-- **Test Steps:**
-  1. Click Add a product name's Sauce Labs Backpack to cart
-  2. Click Remove product name's Sauce Labs Backpack from cart
-  3. Click Add a product name's Sauce Labs Backpack to cart again
-  4. Click shopping cart
-  5. Verify selected item on cart page
-- **Test Data:** product name's Sauce Labs Backpack
-- **Expected Result:** Cart contains no duplicate items and the badge remains accurate
-- **Test Type:** Edge Case
-- **Priority:** High
-- **Risk:** Medium
-- **Automation:** Yes
 
-### TC_018 — Verify that all products can be removed from the shopping cart
+### TC_017 — Verify that all products can be removed from the shopping cart
 - **Module:** Shopping Cart
 - **Scenario:** Remove all products from cart
 - **Preconditions:** Logged in, Cart contains 3 different products
@@ -362,7 +354,7 @@ The objective is to verify expected business behavior, identify account-specific
 - **Automation:** Yes
 
 
-### TC_019 — Verify Add to Cart with problem_user
+### TC_018 — Verify Add to Cart with problem_user
 - **Module:** Shopping Cart
 - **Scenario:** Verify Add to Cart behavior with problem_user
 - **Preconditions:** Logged in, the Inventory Page is displayed, and the cart is initially empty.
@@ -384,7 +376,7 @@ The objective is to verify expected business behavior, identify account-specific
 - **ASSUMPTION:** The Add to Cart functionality should behave consistently across user accounts unless account-specific differences are explicitly documented.
 - **Rationale:** This scenario focuses on detecting account-specific defects that may prevent products from being added correctly. It also verifies cart badge accuracy, button state changes, and product data consistency. Any unexpected behavior observed for problem_user should be recorded and compared against standard_user rather than automatically accepted as expected behavior.
 
-### TC_020 — Verify cart navigation with performance_glitch_user
+### TC_019 — Verify cart navigation with performance_glitch_user
 - **Module:** Shopping Cart
 - **Scenario:** Verify cart navigation with performance_glitch_user
 - **Preconditions:** Logged in, the Inventory Page is displayed, and the cart is initially empty.
@@ -407,7 +399,7 @@ The objective is to verify expected business behavior, identify account-specific
 - **ASSUMPTION:** Navigation may be slower for performance_glitch_user compared to standard_user. However, delayed navigation should not cause incorrect cart state, lost products, duplicate products, or unexpected application errors.
 - **Rationale:** This scenario verifies that delayed page navigation does not compromise shopping cart functionality or data consistency. Navigation duration is measured for observation and comparison with standard_user, rather than being evaluated against an arbitrary performance SLA.
 
-### TC_021 — Verify that a user can successfully complete checkout with valid customer information
+### TC_020 — Verify that a user can successfully complete checkout with valid customer information
 - **Module:** Checkout
 - **Scenario:** Complete Checkout with Valid Information
 - **Preconditions:** User is logged in as standard_user, and the shopping cart contains at least one product.
@@ -430,7 +422,7 @@ Order is completed successfully. Confirmation message is displayed and clear the
 - **Risk:** High
 - **Automation:** Yes
 
-### TC_022 — Verify that checkout is prevented when the Postal Code field is left empty
+### TC_021 — Verify that checkout is prevented when the Postal Code field is left empty
 - **Module:** Checkout
 - **Scenario:** Verify Checkout with Empty Postal Code
 - **Preconditions:** User is logged in as standard_user, and the shopping cart contains at least one product.
@@ -448,7 +440,7 @@ Order is completed successfully. Confirmation message is displayed and clear the
 - **Risk:** Medium
 - **Automation:** Yes
 
-### TC_023 — Verify checkout behavior when the shopping cart is empty
+### TC_022 — Verify checkout behavior when the shopping cart is empty
 - **Module:** Checkout
 - **Scenario:** Verify Checkout with Empty Cart
 - **Preconditions:** The user is logged in as standard_user, and the shopping cart is empty.
@@ -476,7 +468,7 @@ Order is completed successfully. Confirmation message is displayed and clear the
 - **Rationale:** This scenario verifies checkout behavior at the lower boundary of the shopping cart item count (0 products).Allowing an empty cart to proceed through checkout may result in invalid or meaningless orders, inconsistent order data, or unnecessary processing.
 The test also verifies that checkout becomes available once a valid product has been added.
 
-### TC_024 — Verify Checkout Data Integrity for problem_user
+### TC_023 — Verify Checkout Data Integrity for problem_user
 - **Module:** Checkout
 - **Scenario:** Verify Checkout Data Integrity for problem_user
 - **Preconditions:** User is logged in as problem_user, and the shopping cart contains at least one successfully added product.
@@ -506,7 +498,7 @@ The test also verifies that checkout becomes available once a valid product has 
 - **ASSUMPTION 2:** The problem_user account should follow the same functional checkout requirements as standard_user unless account-specific differences are explicitly documented.
 - **Rationale:** This scenario focuses on identifying account-specific data integrity defects during checkout. Inconsistent product names, quantities, or prices may result in incorrect order information and inaccurate totals. These issues are particularly important because checkout is a critical business workflow. Comparing the behavior of problem_user against standard_user helps distinguish account-specific defects from general application issues.
 
-### TC_025 — Verify Successful Checkout Under Slow Performance
+### TC_024 — Verify Successful Checkout Under Slow Performance
 - **Module:** Checkout
 - **Scenario:** Verify Successful Checkout Under Slow Performance
 - **Preconditions:** User is logged in as performance_glitch_user, and the cart contains 2 different products.
@@ -538,7 +530,7 @@ The test also verifies that checkout becomes available once a valid product has 
 - **ASSUMPTION 4:** After a successful checkout, the shopping cart should be cleared.
 - **Rationale:** This scenario validates the reliability of the checkout flow under potentially slow application responses. As checkout is a critical business workflow, delays should not compromise order data accuracy or prevent successful order completion. Testing with performance_glitch_user helps identify account-specific timing issues, synchronization problems, and potential false failures caused by inappropriate automation waits. The scenario also verifies that the application can complete the purchase flow without repeated user actions, even when page transitions take longer than expected.
 
-### TC-026 — Logout invalidates session and redirects to login
+### TC-025 — Logout invalidates session and redirects to login
 - **Module:** Log out / Session Management
 - **Scenario:** User logs out successfully
 - **Preconditions:** User is authenticated
