@@ -37,7 +37,7 @@ Run once before executing the tests:
 
 ### PowerShell
 ```powershell
-mvn exec:java "-Dexec.mainClass=com.microsoft.playwright.CLI" "-Dexec.args=install chromium"`
+mvn exec:java "-Dexec.mainClass=com.microsoft.playwright.CLI" "-Dexec.args=install chromium"
 ```
 ### Command Prompt
 ```bat
